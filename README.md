@@ -1,6 +1,7 @@
 # DateSort
 
 DateSort is a python script used to convert yearly values organized in square format to a single list.
+![alt text](https://github.com/Cythesis/DateSort/blob/main/images/introduction.png?raw=true)
 
 ## Installation
 
