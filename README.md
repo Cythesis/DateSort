@@ -19,18 +19,18 @@ The script has x inputs:
 This includes the name of the input file itself. The name of the input file alone is enough if the file is in the same directory.
 
 ### Sheet name
-The name of the sheet being converted.
+The name of the sheet being converted.               
 ![alt text](https://github.com/Cythesis/DateSort/blob/main/images/sheetName.png?raw=true)
 
 ### The start and end year
 The year range you would like the script to find
 
 ### Excel column of the year
-The column which contains the year (column numbering start with 0)
+The column which contains the year (column numbering start with 0)                
 ![alt text](https://github.com/Cythesis/DateSort/blob/main/images/columnName.png?raw=true)
 
 ### Offset between the year and data
-The cell offset between the year and data (difference)
+The cell offset between the year and data (difference)                  
 ![alt text](https://github.com/Cythesis/DateSort/blob/main/images/rowOffset.png?raw=true)
 
 ### The output column name
