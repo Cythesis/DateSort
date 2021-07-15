@@ -12,18 +12,25 @@ pip install pandas
 
 ## Usage
 
-```python
-import foobar
+The script has x inputs:
 
-# returns 'words'
-foobar.pluralize('word')
+### The file directory
+This includes the name of the input file itself. The name of the input file alone is enough if the file is in the same directory.
 
-# returns 'geese'
-foobar.pluralize('goose')
+### Sheet name
+The name of the sheet being converted.
 
-# returns 'phenomenon'
-foobar.singularize('phenomena')
-```
+### The start and end year
+The year range you would like the script to find
+
+### Excel column of the year
+The column which contains the year (column numbering start with 0)
+
+### Offset between the year and data
+The cell offset between the year and data (difference)
+
+### The output column name
+Any name desired.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
