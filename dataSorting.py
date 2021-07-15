@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def userInput(self, text):
+def userInput(text):
     while 1:
         try:
             ans = input(text)
@@ -10,10 +10,51 @@ def userInput(self, text):
             print("Invalid input!")
 
 
+def loadSheet():
+    while 1:
+        try:
+            filepath = userInput("Enter file path: \n")
+            sheetName = userInput("Enter sheet name: \n")
+            xls = pd.ExcelFile(filepath)
+            sheetData = xls.parse(sheetName, header=None)
+            return sheetData
+        except Exception as e:
+            print(e)
+            print("Try again \n")
+
+
+def userInputInt(text):
+    while 1:
+        try:
+            ans = int(input(text))
+            return ans
+        except Exception as e:
+            print(e)
+
+
 class dataSorting:
     def __init__(self):
-        filepath = userInput("Enter file path: \n")
-        xls = pd.ExcelFile(filepath)
+        mode = 1
+        while 1:
+            sheetData = loadSheet()
+            startYear = userInputInt("Enter the start year: \n")
+            endYear = userInputInt("Enter the end year: \n")
+            yearColumn = userInputInt("Enter the excel column of the year: \n")
+            rowOffset = userInputInt("Enter the row offset between year and data: \n")
+            columnName = userInput("Enter the output column name: \n")
+            output = self.convert2(sheetData, startYear, endYear, yearColumn, rowOffset, columnName)
+            output = output.set_index(0)
+            if mode == 1:
+                output.to_csv(r'output.csv')
+            elif mode == 2:
+                output.to_csv(r'output.csv', mode='a', header=False)
+            print("Converted successfully! \n")
+            ans = input("Enter (e) to exit or (c) to continue: \n")
+            if ans != 'c':
+                exit()
+            else:
+                ans = userInputInt("Enter (1) to overwrite output file or (2) to append: \n")
+                mode = ans
 
     def defaultConfig(self):
         xls = pd.ExcelFile(r"input.xlsx")
@@ -60,10 +101,13 @@ class dataSorting:
     def convert2(self, dataInput, sYear, eYear, yearColumn, rowOffset, columnName):
         output = pd.DataFrame()
         data = pd.DataFrame()
-        for year in range(sYear, eYear + 1):
-            dateIndex = pd.DataFrame(pd.date_range(start='1/1/' + str(year), end='31/12/' + str(year)))
-            output = output.append(dateIndex)
-        output[0] = output[0].dt.date
+        try:
+            for year in range(sYear, eYear + 1):
+                dateIndex = pd.DataFrame(pd.date_range(start='1/1/' + str(year), end='31/12/' + str(year)))
+                output = output.append(dateIndex)
+            output[0] = output[0].dt.date
+        except:
+            breakpoint()
         for dated in output[0]:
             try:
                 index = dataInput.index[dataInput[yearColumn] == dated.year].tolist()[0]
@@ -76,7 +120,6 @@ class dataSorting:
                 breakpoint()
         output[columnName] = data[columnName].tolist()
         return output
-        dataInput.iloc[1570:1620, 5:8]
 
         # For each time series find the corresponding value in the sheet
 
@@ -152,9 +195,6 @@ class dataSorting:
         finalOutput.to_csv(r'output.csv')
         print("Done")
 
-    def save(self, data):
-        # save the data to file
-        pass
 
-
-dataSorting()
+if __name__ == "__main__":
+    dataSorting()
